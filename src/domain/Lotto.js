@@ -5,20 +5,30 @@ export default class Lotto {
   #numbers;
 
   constructor(numbers) {
+    this.#validateNumbers(numbers);
+    this.#numbers = numbers;
+  }
+
+  // 유효성 검사 method
+  #validateNumbers(numbers) {
+    if (!Array.isArray(numbers)) {
+      throw new Error('로또 번호는 배열 타입으로 입력되어야 합니다.');
+    }
     if (numbers.length !== Lotto.NUMBER_LENGTH) {
-      throw new Error('로또 1장은 6개의 번호로 구성되어야 합니다.');
+      throw new Error('로또 번호는 6개의 숫자로 구성되어야 합니다.');
     }
     if (new Set(numbers).size !== Lotto.NUMBER_LENGTH) {
       throw new Error('로또 번호끼리는 서로 중복될 수 없습니다.');
     }
-    if (!numbers.every(number => Lotto.isNumberValid(number))) {
+    if (!numbers.every(number => this.#isNumberValid(number))) {
       throw new Error('로또 번호에는 1~45 사이의 정수만 부여할 수 있습니다.');
     }
-    this.#numbers = numbers;
   }
 
-  static isNumberValid(number) {
-    if (!Number.isInteger(number)) return false;
+  #isNumberValid(number) {
+    if (!Number.isInteger(number)) {
+      return false;
+    }
     return 1 <= number && number <= 45;
   }
 

@@ -21,7 +21,7 @@ describe('로또 번호는', () => {
     const createLotto = () => new Lotto(NOT_ENOUGH_NUMBERS);
 
     // then: 로또가 정상적으로 발행되었는지 확인
-    expect(createLotto).toThrow('로또 1장은 6개의 번호로 구성되어야 합니다.');
+    expect(createLotto).toThrow('로또 번호는 6개의 숫자로 구성되어야 합니다.');
   });
 
   test('서로 중복되지 않는다.', () => {
