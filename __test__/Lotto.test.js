@@ -24,6 +24,17 @@ describe('로또 번호는', () => {
     expect(createLotto).toThrow('로또 1장은 6개의 번호로 구성되어야 합니다.');
   });
 
+  test('서로 중복되지 않는다.', () => {
+    // given: 중복된 번호를 포함하고 있는 배열 준비
+    const DUPLICATED_NUMBERS = [1, 2, 3, 43, 44, 44];
+
+    // when: 중복된 번호를 포함하고 있는 로또 발행 시도
+    const createLotto = () => new Lotto(DUPLICATED_NUMBERS);
+
+    // then: 로또가 정상적으로 발행되었는지 확인
+    expect(createLotto).toThrow('로또 번호끼리는 서로 중복될 수 없습니다.');
+  });
+
   test('1~45 사이의 정수만 부여할 수 있다.', () => {
     // given: 1~45 사이의 정수 6개로 이루어진 배열 준비
     const VALID_NUMBERS = [1, 2, 3, 43, 44, 45];
