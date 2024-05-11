@@ -25,4 +25,12 @@ export default class Lotto {
   get numbers() {
     return this.#numbers;
   }
+
+  // 동등 비교 method
+  static isEqual(lotto1, lotto2) {
+    if (!(lotto1 instanceof Lotto) || !(lotto2 instanceof Lotto)) {
+      throw new Error('Lotto 인스턴스끼리만 비교할 수 있습니다.');
+    }
+    return lotto1.numbers.every(number => lotto2.numbers.includes(number));
+  }
 }
