@@ -1,3 +1,5 @@
+import LottoOrder from '../src/domain/LottoOrder.js';
+
 describe('로또 구입 금액은', () => {
   test('최소 1,000원 이상 입력해야 한다.', () => {
     // given: 최소 구입 금액을 충족하지 않는 금액 준비
