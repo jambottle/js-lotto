@@ -4,9 +4,27 @@ export default class Lotto {
 
   #numbers;
 
-  constructor(numbers) {
+  constructor() {
+    // 1) 임의의 로또 번호를 생성
+    const numbers = this.generateRandomNumbers();
+
+    // 2) 유효성 검사를 통과하면, #numbers에 할당
     this.#validateNumbers(numbers);
     this.#numbers = numbers;
+  }
+
+  // 번호 생성 method
+  generateRandomNumbers() {
+    const randomNumbers = [];
+
+    while (randomNumbers.length < Lotto.NUMBER_LENGTH) {
+      const number = Math.floor(Math.random() * 45) + 1;
+      if (!randomNumbers.includes(number)) {
+        randomNumbers.push(number);
+      }
+    }
+
+    return randomNumbers;
   }
 
   // 유효성 검사 method
