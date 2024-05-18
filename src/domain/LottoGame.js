@@ -1,3 +1,5 @@
+import Lotto from './Lotto.js';
+
 export default class LottoGame {
   static WINNING_NUMBER_LENGTH = 6;
 
@@ -20,6 +22,11 @@ export default class LottoGame {
         '로또 게임의 당첨 번호는 배열 타입으로 입력되어야 합니다.'
       );
     }
+    if (!winningNumbers.every(number => Lotto.isNumberValid(number))) {
+      throw new Error(
+        '로또 게임의 당첨 번호에는 1~45 사이의 정수만 부여할 수 있습니다.'
+      );
+    }
     if (winningNumbers.length !== LottoGame.WINNING_NUMBER_LENGTH) {
       throw new Error(
         '로또 게임의 당첨 번호는 6개의 숫자로 구성되어야 합니다.'
@@ -32,9 +39,9 @@ export default class LottoGame {
 
   // 유효성 검사 method - 보너스 번호
   #validateBonusNumber(winningNumbers, bonusNumber) {
-    if (!Number.isInteger(bonusNumber)) {
+    if (!Lotto.isNumberValid(bonusNumber)) {
       throw new Error(
-        '로또 게임의 보너스 번호는 정수 타입으로 입력되어야 합니다.'
+        '로또 게임의 보너스 번호에는 1~45 사이의 정수만 부여할 수 있습니다.'
       );
     }
     if (winningNumbers.includes(bonusNumber)) {
