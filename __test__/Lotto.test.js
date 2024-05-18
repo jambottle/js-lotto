@@ -13,7 +13,7 @@ describe('로또 번호는', () => {
     expect(Lotto.NUMBER_LENGTH).toBe(6);
   });
 
-  test('1장당 6개의 숫자로 구성되지 않으면, 발행할 수 없다', () => {
+  test('1장당 6개의 숫자로 구성되지 않으면, 로또를 발행할 수 없다.', () => {
     // given: 6개의 번호를 충족하지 않는 배열 준비
     const NOT_ENOUGH_NUMBERS = [1, 2, 3];
 
@@ -28,7 +28,7 @@ describe('로또 번호는', () => {
     expect(createLotto).toThrow('로또 번호는 6개의 숫자로 구성되어야 합니다.');
   });
 
-  test('서로 중복되지 않는다.', () => {
+  test('중복된 번호가 포함되어 있으면, 로또를 발행할 수 없다.', () => {
     // given: 중복된 번호를 포함하고 있는 배열 준비
     const DUPLICATED_NUMBERS = [1, 2, 3, 43, 44, 44];
 
