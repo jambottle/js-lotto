@@ -6,11 +6,15 @@ export default class LottoOrder {
   static MIN_AMOUNT = Lotto.PRICE * LottoOrder.MIN_QUANTITY;
 
   #amount;
+  #lottos = [];
 
   constructor(amount) {
-    // 유효성 검사를 통과하면, #amount에 할당
+    // 1) 유효성 검사를 통과하면, #amount에 할당
     this.#validateAmount(amount);
     this.#amount = amount;
+
+    // 2) 구매한 로또를 #lottos에 할당
+    this.#lottos = this.#generateLottos();
   }
 
   // 유효성 검사 method
@@ -24,5 +28,21 @@ export default class LottoOrder {
     if (amount % Lotto.PRICE !== 0) {
       throw new Error('로또 구입 금액은 1,000원 단위로 입력되어야 합니다.');
     }
+  }
+
+  // 로또 발행 method
+  #generateLottos() {
+    const quantity = this.#amount / Lotto.PRICE;
+    const lottos = [];
+
+    for (let i = 0; i < quantity; i++) {
+      lottos.push(new Lotto());
+    }
+
+    return lottos;
+  }
+
+  get lottos() {
+    return this.#lottos;
   }
 }
