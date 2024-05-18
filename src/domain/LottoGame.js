@@ -1,4 +1,5 @@
 import Lotto from './Lotto.js';
+import { LOTTO_PRIZE } from '../constants/LottoGame.constants.js';
 
 export default class LottoGame {
   static WINNING_NUMBER_LENGTH = 6;
@@ -57,5 +58,37 @@ export default class LottoGame {
 
   get bonusNumber() {
     return this.#bonusNumber;
+  }
+
+  // 당첨금 계산 method
+  calculatePrize(lotto) {
+    const point = this.getPointByWinningNumbers(lotto);
+
+    if (point === 6) {
+      return LOTTO_PRIZE.FIRST;
+    }
+    if (point === 5) {
+      const includesBonusNumber = this.getIncludesBonusNumber(lotto);
+      return includesBonusNumber ? LOTTO_PRIZE.SECOND : LOTTO_PRIZE.THIRD;
+    }
+    if (point === 4) {
+      return LOTTO_PRIZE.FOURTH;
+    }
+    if (point === 3) {
+      return LOTTO_PRIZE.FIFTH;
+    }
+    return LOTTO_PRIZE.NONE;
+  }
+
+  // 당첨 번호 일치 개수 확인 method
+  getPointByWinningNumbers(lotto) {
+    const lottoNumbers = lotto.numbers;
+    return this.#winningNumbers.filter(e => lottoNumbers.includes(e)).length;
+  }
+
+  // 보너스 번호 일치 여부 확인 method
+  getIncludesBonusNumber(lotto) {
+    const lottoNumbers = lotto.numbers;
+    return lottoNumbers.includes(this.#bonusNumber);
   }
 }
